@@ -3,6 +3,7 @@ package com.luv2code.test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
@@ -78,5 +79,12 @@ public class ApplicationExampleTest {
 	@DisplayName("Is grade not greater")
 	void isGradeNotGreaterStudentGrades() {
 		assertFalse(studentGrades.isGradeGreater(2, 35), "failure - should be false");
+	}
+
+	@Test
+	@DisplayName("Check null for student grades")
+	void checkNullForStudentGrades() {
+		assertNotNull(studentGrades.checkNull(student.getStudentGrades().getMathGradeResults()),
+				"object should not be null");
 	}
 }
