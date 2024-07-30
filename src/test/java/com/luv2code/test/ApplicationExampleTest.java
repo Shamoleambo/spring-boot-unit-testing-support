@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -104,5 +105,13 @@ public class ApplicationExampleTest {
 		assertNotNull(studentTwo.getLastname());
 		assertNotNull(studentTwo.getEmailAddress());
 		assertNull(studentGrades.checkNull(studentTwo.getStudentGrades()));
+	}
+
+	@Test
+	@DisplayName("Verify students are prototype")
+	void verifyStudentsArePrototypes() {
+		CollegeStudent studentTwo = context.getBean("collegeStudent", CollegeStudent.class);
+
+		assertNotSame(student, studentTwo);
 	}
 }
