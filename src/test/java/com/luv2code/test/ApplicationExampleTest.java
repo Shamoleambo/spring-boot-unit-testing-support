@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
 
 import com.luv2code.component.MvcTestingExampleApplication;
 import com.luv2code.component.models.CollegeStudent;
@@ -42,6 +44,9 @@ public class ApplicationExampleTest {
 
 	@Autowired
 	StudentGrades studentGrades;
+
+	@Autowired
+	ApplicationContext context;
 
 	@BeforeEach
 	public void beforeEach() {
@@ -86,5 +91,18 @@ public class ApplicationExampleTest {
 	void checkNullForStudentGrades() {
 		assertNotNull(studentGrades.checkNull(student.getStudentGrades().getMathGradeResults()),
 				"object should not be null");
+	}
+
+	@Test
+	@DisplayName("Create student without grade init")
+	void createStudentWithoutGradesInit() {
+		CollegeStudent studentTwo = context.getBean("collegeStudent", CollegeStudent.class);
+		studentTwo.setFirstname("Chad");
+		studentTwo.setLastname("Darby");
+		studentTwo.setEmailAddress("chad.darby@mail.com");
+		assertNotNull(studentTwo.getFirstname());
+		assertNotNull(studentTwo.getLastname());
+		assertNotNull(studentTwo.getEmailAddress());
+		assertNull(studentGrades.checkNull(studentTwo.getStudentGrades()));
 	}
 }
