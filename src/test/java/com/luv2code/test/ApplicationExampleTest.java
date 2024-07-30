@@ -1,5 +1,6 @@
 package com.luv2code.test;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -113,5 +114,15 @@ public class ApplicationExampleTest {
 		CollegeStudent studentTwo = context.getBean("collegeStudent", CollegeStudent.class);
 
 		assertNotSame(student, studentTwo);
+	}
+
+	@Test
+	@DisplayName("Find grade pint average")
+	void findGradePointAverage() {
+		assertAll("Testing all assertEquals",
+				() -> assertEquals(353.25,
+						studentGrades.addGradeResultsForSingleClass(student.getStudentGrades().getMathGradeResults())),
+				() -> assertEquals(88.31,
+						studentGrades.findGradePointAverage(student.getStudentGrades().getMathGradeResults())));
 	}
 }
